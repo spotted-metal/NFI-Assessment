@@ -9,7 +9,6 @@
  */
 async function getCurrencyData(str) {
     let uri = `https://data.messari.io/api/v1/assets/${str}`;
-    console.log(uri);
     let response = await fetch(uri);
     let payload = await response.json();
     let {status, data} = payload;
@@ -24,4 +23,26 @@ async function getCurrencyData(str) {
     });
 }
 
-export {getCurrencyData};
+/**
+ * Get the market data for a given currency ID.
+ * Relevant market statistics are current USD price
+ * and the percentage change in USD price over the last 24 hours.
+ */
+async function getMarketData(id) {
+    let uri =
+        `https://data.messari.io/api/v1/assets/${id}/metrics/market-data`;
+    let response = await fetch(uri);
+    let payload = await response.json();
+    let {status, data} = payload;
+
+    if (status.error_code) {
+        throw new Error(status.error_message);
+    }
+
+    return ({
+        price: data.market_data.price_usd,
+        percent_change: data.market_data.percent_change_usd_last_24_hours,
+    })
+}
+
+export {getCurrencyData, getMarketData};
