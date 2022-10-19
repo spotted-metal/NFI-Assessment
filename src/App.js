@@ -1,29 +1,27 @@
 import React from 'react';
-import {
-  Button,
-  ScrollView,
-  Text,
-  View,
-} from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import {getCurrencyData} from './js/messari.js';
+import { HomeScreen, AddCurrencyScreen } from './js/screen';
+
+const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
-      <>
-        <Text>
-          Crypto Tracker App
-        </Text>
-        <ScrollView>
-          <Text>Item 1</Text>
-          <Text>Item 2</Text>
-          <Text>Item 3</Text>
-          <Button
-            onPress={() => getCurrencyData("btc").then(a => console.log(a)).catch(e => console.log(e))}
-            title="Bitcoin"
-          ></Button>
-        </ScrollView>
-      </>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name = "Home"
+            component = {HomeScreen}
+            options = {{ title: 'Crypto Tracker App'}}
+          />
+          <Stack.Screen
+            name = "AddCurrency"
+            component = {AddCurrencyScreen}
+            options = {{ title: 'Add a Cryptocurrency'}}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
   );
 };
 
