@@ -3,7 +3,7 @@
  */
 
 /**
- * Get the asset ID and name of a cryptocurrency using a given key.
+ * Get the asset ID, name and symbol of a cryptocurrency using a given key.
  * According to the API, the asset ID is unique and will never change,
  * making it the most stable reference.
  */
@@ -20,6 +20,7 @@ async function getCurrencyData(str) {
     return ({
         id: data.id,
         name: data.name,
+        symbol: data.symbol,
     });
 }
 
@@ -41,7 +42,7 @@ async function getMarketData(id) {
 
     return ({
         price: data.market_data.price_usd,
-        percent_change: data.market_data.percent_change_usd_last_24_hours,
+        percentChange: data.market_data.percent_change_usd_last_24_hours,
     })
 }
 
